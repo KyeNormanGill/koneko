@@ -1,10 +1,11 @@
 const Command = require('../structs/Command.js');
 
-module.exports = class PingCommand extends Command {
+module.exports = class MyIdCommand extends Command {
 	constructor() {
 		super({
 			name: 'myid',
-			description: 'Find your id.'
+			description: 'Find your id.',
+			owner: true
 		});
 	}
 

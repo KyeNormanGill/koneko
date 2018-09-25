@@ -10,6 +10,8 @@ module.exports = class Koneko extends Client {
 		this.prefix = '>';
 		this.owner = 52960823;
 		this.commands = new Map();
+		this.database = require('./Database.js');
+		this.customCommands = this.database.import('../models/commands.js');
 
 		this.initEvents();
 		this.initCommands();
@@ -20,7 +22,6 @@ module.exports = class Koneko extends Client {
 		const events = await readdir(dir);
 
 		for (const event of events) {
-			console.log(`added event for ${event.replace('.js', '')}`);
 			this.on(event.replace('.js', ''), (...args) => require(path.resolve(dir, event))(this, ...args));
 		}
 

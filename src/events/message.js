@@ -1,5 +1,4 @@
-module.exports = (client, message) => {
-	console.log(message);
+module.exports = async(client, message) => {
 	const { prefix } = message.client;
 
 	if (!message.content.startsWith(prefix)) return;
@@ -9,8 +8,17 @@ module.exports = (client, message) => {
 	const command = message.client.commands.get(commandName)
 			|| message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-	if (!command) return console.log('no command');
-	if (command.owner && message.client.owner !== message.user.id) return console.log('Not owner');
+	if (!command) {
+		const customCommand = await client.customCommands.findOne({ where: { name: commandName } });
+		if (!customCommand) return;
+		return message.channel.send(customCommand.content);
+	}
+
+	if (command.mod && !message.user.moderator) {
+		if (message.client.owner !== message.user.id) return;
+	}
+
+	if (command.owner && message.client.owner !== message.user.id) return;
 
 	const args = message.content.split(' ').slice(1).join(' ');
 
