@@ -12,6 +12,7 @@
   "author": "Artful",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.16.3",
     "javelin": "^0.3.2",
     "sequelize": "^4.38.1",
     "sqlite3": "^4.0.2"
