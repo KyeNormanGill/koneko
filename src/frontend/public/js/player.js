@@ -29,7 +29,7 @@ websocket.addEventListener('message', event => {
 	try {
 		parsed = JSON.parse(event.data);
 	} catch (e) {
-		console.log(e);
+		return console.log(e);
 	}
 
 	if (parsed.name === 'setSong') {

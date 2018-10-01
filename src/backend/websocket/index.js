@@ -12,7 +12,7 @@ wss.on('connection', ws => {
 		try {
 			parsed = JSON.parse(message);
 		} catch (e) {
-			console.log(e);
+			return console.log(e);
 		}
 
 		if (parsed.name === 'identification') {
