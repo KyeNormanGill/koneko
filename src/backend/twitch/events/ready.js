@@ -1,7 +1,5 @@
-const DB = require('../structs/Database.js');
-
 module.exports = client => {
-	console.log('Logged in!');
+	console.log('Twitch check!');
 	console.time('Database sync');
 	client.database.sync().then(() => console.timeEnd('Database sync'));
 };

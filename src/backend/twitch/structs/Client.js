@@ -1,5 +1,8 @@
+const YouTube = require('simple-youtube-api');
 const { Client } = require('javelin');
 const { promisify } = require('util');
+const { ytToken } = require('../config.json');
+const WebSocket = require('ws');
 const path = require('path');
 const fs = require('fs');
 const readdir = promisify(fs.readdir);
@@ -12,7 +15,13 @@ module.exports = class Koneko extends Client {
 		this.commands = new Map();
 		this.database = require('./Database.js');
 		this.customCommands = this.database.import('../models/commands.js');
+		this.baseWS = new WebSocket('ws://localhost:1002');
+		this.youtube = new YouTube(ytToken);
 
+		this.baseWS.on('open', () => {
+			console.log('Twitch connected to baseWS');
+			this.baseWS.send(JSON.stringify({ name: 'identification', bearer: 'twitch' }));
+		});
 		this.initEvents();
 		this.initCommands();
 	}
