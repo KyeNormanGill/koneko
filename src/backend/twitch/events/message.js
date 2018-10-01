@@ -11,6 +11,9 @@ module.exports = async(client, message) => {
 	if (!command) {
 		const customCommand = await client.customCommands.findOne({ where: { name: commandName } });
 		if (!customCommand) return;
+		if (customCommand.mod && !message.user.moderator) {
+			if (message.client.owner !== message.user.id) return;
+		}
 		return message.channel.send(customCommand.content);
 	}
 
