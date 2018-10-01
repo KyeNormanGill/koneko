@@ -8,7 +8,13 @@ const wss = new Server({
 
 wss.on('connection', ws => {
 	ws.on('message', message => {
-		const parsed = JSON.parse(message);
+		let parsed;
+		try {
+			parsed = JSON.parse(message);
+		} catch (e) {
+			console.log(e);
+		}
+
 		if (parsed.name === 'identification') {
 			if (parsed.bearer === 'twitch') {
 				connections.set('twitch', ws);
@@ -31,6 +37,4 @@ wss.on('connection', ws => {
 			}));
 		}
 	});
-
-	ws.send('something');
 });
