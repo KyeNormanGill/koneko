@@ -1,4 +1,4 @@
-console.log('Websocket check');
+console.log('Check');
 const { Server } = require('ws');
 const connections = new Map();
 

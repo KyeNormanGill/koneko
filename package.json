@@ -17,6 +17,7 @@
     "opener": "^1.5.1",
     "sequelize": "^4.38.1",
     "simple-youtube-api": "^5.0.2",
+    "snekfetch": "^4.0.4",
     "sqlite3": "^4.0.2",
     "ws": "^6.0.0"
   }

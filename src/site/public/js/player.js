@@ -19,7 +19,8 @@ let player;
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
 		height: '390',
-		width: '640'
+		width: '640',
+		playerVars: { 'controls': 0, 'disablekb': 1 }
 	});
 }
 

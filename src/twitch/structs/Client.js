@@ -17,9 +17,10 @@ module.exports = class Koneko extends Client {
 		this.customCommands = this.database.import('../models/commands.js');
 		this.baseWS = new WebSocket('ws://localhost:1002');
 		this.youtube = new YouTube(ytToken);
+		this.clientID = null;
 
 		this.baseWS.on('open', () => {
-			console.log('Twitch connected to baseWS');
+			console.log('Connected to baseWS');
 			this.baseWS.send(JSON.stringify({ name: 'identification', bearer: 'twitch' }));
 		});
 		this.initEvents();
