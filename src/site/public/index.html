@@ -5,17 +5,31 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Twitch Thots</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div class="main">
-		<div id="player"></div>
-		<div>
-			<button id="stop-btn">STOP</button>
-			<button id="pause-btn">PAUSE</button>
-			<button id="play-btn">PLAY</button>
-		</div>
+			<div class="left">
+				<div class="player">
+					<div id="player"></div>
+				</div>
+				<div class="controls">
+					<i @click="pause" class="fas fa-pause"></i>
+					<i @click="play" class="fas fa-play"></i>
+					<i @click="skip" class="fas fa-angle-double-right"></i>
+				</div>
+				<div class="info">
+					
+				</div>
+			</div>
+			<div class="right">
+				<div class="t-chat">
+						<iframe frameborder="0" scrolling="true" id="chat_embed" src="https://www.twitch.tv/embed/artful_au/chat?darkpopout" height="100%" width="100%"> </iframe>
+				</div>
+			</div>
 	</div>
+	<script src="js/vue.js"></script>
 	<script src="js/player.js"></script>
 </body>
 </html>

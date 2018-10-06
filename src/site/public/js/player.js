@@ -2,8 +2,31 @@
 const tag = document.createElement('script');
 const websocket = new WebSocket('ws://localhost:1002');
 let started = false;
+let player;
 
-// Connection opened
+const app = new Vue({
+	el: '.main',
+	data: {
+		message: 'hello world',
+		currSongName: 'Waiting...',
+		currSongChannel: 'Waiting...',
+		currSongDuration: 'Waiting...',
+		songs: [],
+		messages: []
+	},
+	methods: {
+		play() {
+			player.playVideo();
+		},
+		skip() {
+			// todo
+		},
+		pause() {
+			player.pauseVideo();
+		}
+	}
+});
+
 websocket.onopen = () => {
 	websocket.send(JSON.stringify({
 		name: 'identification',
@@ -15,16 +38,14 @@ tag.src = 'https://www.youtube.com/iframe_api';
 const firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-let player;
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
-		height: '390',
-		width: '640',
-		playerVars: { 'controls': 0, 'disablekb': 1 }
+		height: '300px',
+		width: '100%',
+		playerVars: { 'disablekb': 1 }
 	});
 }
 
-// Listen for messages
 websocket.addEventListener('message', event => {
 	let parsed;
 	try {
@@ -34,19 +55,13 @@ websocket.addEventListener('message', event => {
 	}
 
 	if (parsed.name === 'setSong') {
+		app.songs.push(parsed.song);
+		app.currSongName = parsed.song.name;
+		app.currSongChannel = parsed.song.channel;
+		app.currSongDuration = parsed.song.duration;
 		player.loadVideoById(parsed.song.id);
 		player.playVideo();
 	}
 });
 
-const stop = document.getElementById('stop-btn').addEventListener('click', () => {
-	player.stopVideo();
-});
 
-const pause = document.getElementById('pause-btn').addEventListener('click', () => {
-	player.pauseVideo();
-});
-
-const play = document.getElementById('play-btn').addEventListener('click', () => {
-	player.playVideo();
-});

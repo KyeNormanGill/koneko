@@ -3,18 +3,50 @@
 	margin: 0;
 }
 
-body {
-	width: 70%;
-	margin: auto;
-	background-color: #dddddd;
+.main {
+	max-height: 100vh;
 }
 
-.main {
+.left {
+	width: 30vw;
+	background-color: #4a4e69;
+	float: left;
+}
+
+.right {
+	width: 70vw;
+	margin-left: 30vw;
+	background-color: #22223b;
+}
+
+.left, .right {
 	height: 100vh;
+}
+
+.player {
+	height: 300px;
+}
+
+.controls {
+	height: 50px;
+	background-color: #22223b;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-#player {
+.controls > i {
+	padding: 0 20px;
+	font-size: 26px;
+	color: #9a8c98;
+}
+
+.controls > i:hover {
+	color: #f2e9e4;
+}
+
+.t-chat {
+	box-sizing: border-box;
+	padding: 10px;
+	height: 100vh;
 }

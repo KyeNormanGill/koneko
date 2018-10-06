@@ -21,4 +21,3 @@ function start(args) {
 for (const proc in processes) {
 	start(processes[proc]);
 }
-

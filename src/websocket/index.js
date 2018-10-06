@@ -8,6 +8,7 @@ const wss = new Server({
 
 wss.on('connection', ws => {
 	ws.on('message', message => {
+		console.log('received');
 		let parsed;
 		try {
 			parsed = JSON.parse(message);
@@ -31,9 +32,18 @@ wss.on('connection', ws => {
 			web.send(JSON.stringify({
 				name: 'setSong',
 				bearer: 'host',
-				song: {
-					id: parsed.song.id
-				}
+				song: parsed.song
+			}));
+		}
+
+		if (parsed.name === 'tMessage' && parsed.bearer === 'twitch') {
+			console.log('message received');
+			const web = connections.get('web');
+			if (!web) return console.log('No website loaded!');
+			web.send(JSON.stringify({
+				name: 'tMessage',
+				bearer: 'host',
+				message: parsed.message
 			}));
 		}
 	});

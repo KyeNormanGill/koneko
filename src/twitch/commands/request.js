@@ -17,13 +17,19 @@ module.exports = class RequestCommand extends Command {
 		const vidData = await message.client.youtube.getVideoByID(baseData[0].id);
 		if (!vidData) return message.channel.send('There was a problem with the youtube api!');
 
-		console.log('sending song');
-		message.client.baseWS.send(JSON.stringify({
+		const payload = {
 			name: 'setSong',
 			song: {
-				id: vidData.id
+				id: vidData.id,
+				name: vidData.title,
+				channel: vidData.channel.title,
+				length: vidData.duration
 			},
 			bearer: 'twitch'
-		}));
+		};
+
+		console.log(payload);
+
+		message.client.baseWS.send(JSON.stringify(payload));
 	}
 };
